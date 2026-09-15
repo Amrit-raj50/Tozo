@@ -1,11 +1,8 @@
-import React from 'react';
-import { Sparkles, AlertTriangle, Github, Compass } from 'lucide-react';
-import TozoMascot from './TozoMascot';
-
 import React, { useState, useEffect } from 'react';
-import { Sparkles, AlertTriangle, Github, User, UserCheck, LayoutGrid } from 'lucide-react';
+import { Sparkles, AlertTriangle, Github, User, LayoutGrid } from 'lucide-react';
 import TozoMascot from './TozoMascot';
 import { getCurrentUser } from '../services/auth';
+
 
 export default function Navbar({ backendStatus, activeTab = 'home', onTabChange, onReset }) {
   const [currentUser, setCurrentUser] = useState(null);
