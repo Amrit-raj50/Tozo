@@ -17,13 +17,16 @@ import ReportView from './components/ReportView';
 import ErrorState from './components/ErrorState';
 import TozoMascot from './components/TozoMascot';
 import PawTrail from './components/PawTrail';
+import MySpaceView from './components/MySpaceView';
 import { checkHealth, fetchSampleRepos, startAnalysis, pollJob, fetchScorecard } from './api';
 import { getTozoBark } from './data/tozoBarks';
+import { addTrackedHistory } from './services/auth';
 
 export default function App() {
   const [repoUrl, setRepoUrl] = useState('');
   const [urlError, setUrlError] = useState('');
   const [state, setState] = useState('idle'); // idle | loading | report | error
+  const [activeTab, setActiveTab] = useState('home'); // home | myspace
   const [jobStatus, setJobStatus] = useState(null);
   const [report, setReport] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -51,6 +54,7 @@ export default function App() {
           setJobStatus({ status: 'scanning', stage_message: `Loading scorecard for ${owner}/${repo}...`, progress_percent: 50 });
           const cachedReport = await fetchScorecard(owner, repo);
           setReport(cachedReport);
+          addTrackedHistory(cachedReport);
           setState('report');
         } catch (err) {
           setErrorMessage(err.message || `No cached scorecard found for ${owner}/${repo}.`);
@@ -105,6 +109,7 @@ export default function App() {
       if (startRes.status === 'completed') {
         const finalJob = await pollJob(jobId, (progress) => setJobStatus(progress), 300);
         setReport(finalJob);
+        addTrackedHistory(finalJob);
         setState('report');
         return;
       }
@@ -115,6 +120,7 @@ export default function App() {
       });
 
       setReport(completedReport);
+      addTrackedHistory(completedReport);
       setState('report');
     } catch (err) {
       setErrorMessage(err.message || 'An unexpected error occurred during repository analysis.');
@@ -159,9 +165,19 @@ export default function App() {
     }
   };
 
+  const handleAnalyzeFromSpace = (url) => {
+    setRepoUrl(url);
+    executeAnalysis(url, false);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-dusk-base text-cream-text font-sans">
-      <Navbar backendStatus={backendHealth} onReset={handleReset} />
+      <Navbar 
+        backendStatus={backendHealth} 
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        onReset={handleReset} 
+      />
 
       <main className="flex-1">
         {/* Loading State: Interactive Waypoint Trail with Walking Tozo */}
@@ -184,8 +200,13 @@ export default function App() {
           <ErrorState error={errorMessage} onReset={handleReset} />
         )}
 
+        {/* My Space View State */}
+        {state === 'idle' && activeTab === 'myspace' && (
+          <MySpaceView onAnalyzeRepo={handleAnalyzeFromSpace} />
+        )}
+
         {/* Idle / Landing Page State */}
-        {state === 'idle' && (
+        {state === 'idle' && activeTab === 'home' && (
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
             {/* Hero Section */}
             <div className="text-center space-y-6 animate-hero-settle">
