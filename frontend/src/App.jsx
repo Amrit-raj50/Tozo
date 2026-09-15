@@ -186,18 +186,18 @@ export default function App() {
 
         {/* Idle / Landing Page State */}
         {state === 'idle' && (
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
             {/* Hero Section */}
-            <div className="text-center space-y-5 animate-hero-settle">
+            <div className="text-center space-y-6 animate-hero-settle">
               {/* Mascot & Friendly Speech Bubble */}
               <div className="flex flex-col items-center justify-center mb-2">
-                <div className="p-3.5 rounded-3xl bg-dusk-surface/90 border border-slate-700/60 shadow-xl relative">
+                <div className="p-4 rounded-3xl glass-panel relative shadow-2xl">
                   <TozoMascot 
                     pose={useSpriteMode ? "sprite-wag" : "ready"} 
                     mood="excited"
                     useSprite={useSpriteMode}
                     speechText={heroBark}
-                    size={90}
+                    size={96}
                     className="hover:scale-105 transition-transform"
                   />
                 </div>
@@ -206,34 +206,34 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setUseSpriteMode(!useSpriteMode)}
-                  className="mt-3 inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-dusk-surface/80 hover:bg-dusk-surface text-amber-collar border border-amber-collar/30 transition-all cursor-pointer shadow-sm"
+                  className="mt-3.5 inline-flex items-center space-x-1.5 px-3.5 py-1.2 rounded-full text-[11px] font-semibold bg-dusk-surface/80 hover:bg-dusk-surface text-amber-collar border border-amber-collar/30 transition-all cursor-pointer shadow-sm hover:scale-105"
                   title="Toggle between Vector and 2D Game Sprite Mode"
                 >
                   <Gamepad2 className="w-3.5 h-3.5" />
-                  <span>{useSpriteMode ? "2D Dog Sprite Active (Click for Vector)" : "Switch to 2D Dog Sprite"}</span>
+                  <span>{useSpriteMode ? "2D Dog Sprite Active (Click for Vector)" : "Switch to 2D Dog Sprite Mode"}</span>
                 </button>
               </div>
 
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-amber-collar/15 border border-amber-collar/30 text-amber-collar text-xs font-semibold">
+              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-amber-collar/15 border border-amber-collar/35 text-amber-collar text-xs font-bold tracking-wide uppercase shadow-sm">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>AI Reasoning + Instant Static Code Heuristics</span>
+                <span>AI Reasoning + Instant Code AST Engine</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-cream-text font-display tracking-tight leading-tight">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-cream-text font-display tracking-tight leading-[1.1]">
                 Find Your Way Through <br className="hidden sm:block" />
-                <span className="bg-gradient-to-r from-amber-collar via-moss-trail to-clay-rust bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-amber-400 via-emerald-400 to-amber-500 bg-clip-text text-transparent">
                   Any Codebase
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-                Tozo guides you through open-source repositories. Discover high-leverage starter tasks, commit freshness drift, verified facts, and actionable code fixes.
+              <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
+                Tozo walks alongside open-source contributors. Uncover starter tasks, track commit drift, inspect verified facts, and draft maintainer-ready fixes.
               </p>
             </div>
 
-            {/* Input Search Form */}
-            <div className="mt-10">
-              <form onSubmit={handleSubmit} className="p-3 sm:p-4 rounded-3xl border border-slate-700/70 bg-dusk-surface/90 shadow-2xl backdrop-blur-md relative">
+            {/* Input Search Form Container */}
+            <div className="mt-10 max-w-3xl mx-auto">
+              <form onSubmit={handleSubmit} className="p-3.5 sm:p-4 rounded-3xl glass-panel glow-focus shadow-2xl relative">
                 <div className="flex flex-col sm:flex-row items-center gap-3">
                   <div className="relative flex-1 w-full">
                     <label htmlFor="repo-url-input" className="sr-only">
@@ -246,46 +246,46 @@ export default function App() {
                       placeholder="https://github.com/owner/repository"
                       value={repoUrl}
                       onChange={handleInputChange}
-                      className="w-full pl-12 pr-4 py-3.5 bg-dusk-base/90 border border-slate-700/80 rounded-2xl text-sm text-cream-text placeholder-slate-400 focus:outline-none focus:border-amber-collar focus:ring-2 focus:ring-amber-collar/20 transition-all font-mono"
+                      className="w-full pl-12 pr-4 py-3.5 bg-dusk-base/90 border border-slate-700/80 rounded-2xl text-sm text-cream-text placeholder-slate-400 focus:outline-none focus:border-amber-collar transition-all font-mono shadow-inner"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-amber-collar hover:bg-amber-400 text-dusk-base font-bold text-sm shadow-lg hover:shadow-amber-collar/20 transition-all flex items-center justify-center space-x-2 shrink-0 group cursor-pointer"
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-amber-collar hover:bg-amber-400 text-dusk-base font-extrabold text-sm shadow-xl hover:shadow-amber-collar/25 transition-all flex items-center justify-center space-x-2 shrink-0 group cursor-pointer"
                   >
                     <span>Sniff Out Issues</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
 
                 {urlError && (
-                  <div className="mt-3 px-3 py-2 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center space-x-2">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
+                  <div className="mt-3 px-3.5 py-2.5 rounded-xl bg-rose-500/10 border border-rose-500/25 text-rose-300 text-xs flex items-center space-x-2 animate-hero-settle">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
                     <span>{urlError}</span>
                   </div>
                 )}
               </form>
 
               {/* Guardrails note */}
-              <div className="mt-3 flex items-center justify-center space-x-2 text-xs text-slate-400">
-                <ShieldCheck className="w-3.5 h-3.5 text-moss-trail" />
-                <span>Safe shallow cloning (depth=1) • Public GitHub repositories up to 50MB</span>
+              <div className="mt-3.5 flex items-center justify-center space-x-2 text-xs text-slate-400">
+                <ShieldCheck className="w-4 h-4 text-moss-trail" />
+                <span>Shallow clone (depth=1) • Public GitHub repositories up to 50MB</span>
               </div>
 
               {/* Sample Repositories Chips */}
               {sampleRepos.length > 0 && (
                 <div className="mt-8">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block text-center mb-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block text-center mb-3.5">
                     Or pick a trail to explore:
                   </span>
-                  <div className="flex flex-wrap justify-center gap-2">
+                  <div className="flex flex-wrap justify-center gap-2.5">
                     {sampleRepos.map((sample) => (
                       <button
                         key={sample.url}
                         onClick={() => handleSelectSample(sample.url)}
-                        className="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-dusk-surface/80 hover:bg-dusk-surface text-slate-200 hover:text-amber-collar border border-slate-700/60 hover:border-amber-collar/40 transition-all flex items-center space-x-1.5 shadow-sm cursor-pointer"
+                        className="px-4 py-2 rounded-xl text-xs font-semibold bg-dusk-surface/80 hover:bg-dusk-surface text-slate-200 hover:text-amber-collar border border-slate-700/60 hover:border-amber-collar/50 transition-all flex items-center space-x-2 shadow-sm cursor-pointer hover:scale-105"
                       >
-                        <Compass className="w-3 h-3 text-amber-collar" />
+                        <Compass className="w-3.5 h-3.5 text-amber-collar" />
                         <span>{sample.name}</span>
                       </button>
                     ))}
@@ -298,52 +298,70 @@ export default function App() {
             <PawTrail />
 
             {/* Three Rhythmic Feature Beats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
               {/* Beat 1: Freshness & Drift */}
-              <div className="rounded-2xl p-6 border border-slate-700/60 bg-dusk-surface/80 shadow-md flex flex-col justify-between">
+              <div className="dusk-card dusk-card-interactive p-6 flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-collar/15 text-amber-collar border border-amber-collar/30 flex items-center justify-center mb-4">
-                    <GitCommit className="w-5 h-5" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-11 h-11 rounded-2xl bg-amber-collar/15 text-amber-collar border border-amber-collar/30 flex items-center justify-center shadow-inner">
+                      <GitCommit className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      +3 resolved, 0 added
+                    </span>
                   </div>
-                  <h3 className="text-base font-bold text-cream-text font-display">1. Freshness &amp; Drift</h3>
+                  <h3 className="text-lg font-bold text-cream-text font-display">1. Freshness &amp; Drift</h3>
                   <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                    Track code drift across git commits. Know exactly what new defects were introduced and celebrate resolved ones with SQLite scan history.
+                    Track code drift across git commits. Know exactly what new defects were introduced and celebrate resolved ones with SQLite history.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-amber-collar">
-                  Short SHA + Line Drift
+                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-amber-collar">
+                  <span>Short SHA Diff</span>
+                  <span className="text-slate-500">HEAD vs Baseline</span>
                 </div>
               </div>
 
               {/* Beat 2: Fetch List for Newcomers */}
-              <div className="rounded-2xl p-6 border border-slate-700/60 bg-dusk-surface/80 shadow-md flex flex-col justify-between">
+              <div className="dusk-card dusk-card-interactive p-6 flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-moss-trail/15 text-moss-trail border border-moss-trail/30 flex items-center justify-center mb-4">
-                    <Heart className="w-5 h-5" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-11 h-11 rounded-2xl bg-moss-trail/15 text-moss-trail border border-moss-trail/30 flex items-center justify-center shadow-inner">
+                      <Heart className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-collar/15 text-amber-collar border border-amber-collar/30">
+                      8 treats curated
+                    </span>
                   </div>
-                  <h3 className="text-base font-bold text-cream-text font-display">2. Tozo's Fetch List</h3>
+                  <h3 className="text-lg font-bold text-cream-text font-display">2. Tozo's Fetch List</h3>
                   <p className="text-xs text-slate-300 mt-2 leading-relaxed">
                     Curated low-risk tasks for first-time contributors. Typos, docstrings, and quick lint fixes with reasons explaining why each is beginner-friendly.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-moss-trail">
-                  Draft-a-PR Ready
+                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-moss-trail">
+                  <span>Draft-a-PR Ready</span>
+                  <span className="text-slate-500">14-Point Issue</span>
                 </div>
               </div>
 
               {/* Beat 3: Verified Ground Truth */}
-              <div className="rounded-2xl p-6 border border-slate-700/60 bg-dusk-surface/80 shadow-md flex flex-col justify-between">
+              <div className="dusk-card dusk-card-interactive p-6 flex flex-col justify-between">
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-clay-rust/15 text-clay-rust border border-clay-rust/30 flex items-center justify-center mb-4">
-                    <FileCheck className="w-5 h-5" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-11 h-11 rounded-2xl bg-clay-rust/15 text-clay-rust border border-clay-rust/30 flex items-center justify-center shadow-inner">
+                      <FileCheck className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                      100% verified facts
+                    </span>
                   </div>
-                  <h3 className="text-base font-bold text-cream-text font-display">3. Ground Truth Facts</h3>
+                  <h3 className="text-lg font-bold text-cream-text font-display">3. Ground Truth Facts</h3>
                   <p className="text-xs text-slate-300 mt-2 leading-relaxed">
                     Deterministic checks for tests, CI workflows, and CONTRIBUTING.md guidelines separated from AI architectural reasoning.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-clay-rust">
-                  Clickable Source Links
+                <div className="mt-5 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-clay-rust">
+                  <span>Permalinks</span>
+                  <span className="text-slate-500">Source Lines</span>
                 </div>
               </div>
             </div>

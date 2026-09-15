@@ -2,137 +2,195 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --dusk-base: #0B111E;
+  --dusk-surface: #131B2A;
+  --dusk-surface-hover: #1A2538;
+  --dusk-card: #182234;
+  --dusk-border: rgba(255, 255, 255, 0.08);
+  --dusk-border-glow: rgba(245, 158, 11, 0.35);
+  
+  --amber-collar: #F59E0B;
+  --amber-hover: #FBBF24;
+  --amber-glow: rgba(245, 158, 11, 0.25);
+  --amber-subtle: rgba(245, 158, 11, 0.12);
+  
+  --moss-trail: #10B981;
+  --moss-subtle: rgba(16, 185, 129, 0.14);
+  
+  --clay-rust: #EF4444;
+  --clay-subtle: rgba(239, 68, 68, 0.14);
+  
+  --cream-text: #F8FAFC;
+  --cream-muted: #94A3B8;
+  --cream-faint: #64748B;
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
 @layer base {
   body {
-    background-color: #1B2430;
-    color: #F2EDE4;
+    background-color: var(--dusk-base);
+    color: var(--cream-text);
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
     background-image: 
-      radial-gradient(at 0% 0%, rgba(232, 163, 61, 0.04) 0px, transparent 45%),
-      radial-gradient(at 100% 100%, rgba(122, 155, 118, 0.04) 0px, transparent 45%);
+      radial-gradient(ellipse at 15% 10%, rgba(245, 158, 11, 0.06) 0px, transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(15, 23, 42, 0.8) 0px, transparent 100%);
     background-attachment: fixed;
-    line-height: 1.55;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.025em;
-    line-height: 1.2;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
   }
 }
 
-/* Dusk Trail Custom Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #141B24;
+  background: #0B111E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2D3A4D;
+  background: #1E293B;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3E4E66;
+  background: #334155;
 }
 
-/* Elevated Dusk Cards */
+/* Glassmorphism & Elevated Panels */
+.glass-panel {
+  background: rgba(19, 27, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--dusk-border);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+.glass-header {
+  background: rgba(11, 17, 30, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--dusk-border);
+}
+
 .dusk-card {
-  background-color: #232E3D;
-  border: 1px solid rgba(242, 237, 228, 0.08);
-  border-radius: 1.25rem;
+  background-color: var(--dusk-card);
+  border: 1px solid var(--dusk-border);
+  border-radius: var(--radius-lg);
 }
 
 .dusk-card-interactive {
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s ease, 
+              box-shadow 0.25s ease,
+              background-color 0.25s ease;
 }
 
 .dusk-card-interactive:hover {
-  border-color: rgba(232, 163, 61, 0.35);
-  background-color: #263344;
+  transform: translateY(-3px);
+  border-color: var(--dusk-border-glow);
+  box-shadow: 0 12px 28px -10px rgba(245, 158, 11, 0.15);
+  background-color: var(--dusk-surface-hover);
 }
 
-/* Single deliberate motion sequence on hero load */
+/* Glow Ring Focus State */
+.glow-focus:focus-within {
+  border-color: var(--amber-collar);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2), 0 10px 25px -5px rgba(245, 158, 11, 0.15);
+}
+
+/* Active Button Micro-Interaction Scale */
+button:active, a:active {
+  transform: scale(0.98);
+}
+
+/* Hero Motion Sequence */
 @keyframes heroSettle {
   0% {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px) scale(0.99);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .hero-settle {
-  animation: heroSettle 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroSettle 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Walking Mascot Animation */
+/* Mascot Animations */
 @keyframes tozoWalkBob {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-4px) rotate(-1deg);
+    transform: translateY(-4px) rotate(-1.5deg);
   }
 }
 
 .tozo-walking {
-  animation: tozoWalkBob 0.8s ease-in-out infinite;
+  animation: tozoWalkBob 0.75s ease-in-out infinite;
 }
 
-/* Tail Wag Animation */
 @keyframes tozoTailWag {
   0%, 100% {
     transform: rotate(0deg);
   }
   50% {
-    transform: rotate(8deg);
+    transform: rotate(10deg);
   }
 }
 
 .tozo-proud-tail {
   transform-origin: bottom left;
-  animation: tozoTailWag 0.6s ease-in-out infinite;
+  animation: tozoTailWag 0.55s ease-in-out infinite;
 }
 
-/* Quick Tail Wag on Mascot Click */
 @keyframes tozoQuickWag {
   0%, 100% {
     transform: rotate(0deg);
   }
   25% {
-    transform: rotate(18deg);
+    transform: rotate(20deg);
   }
   75% {
-    transform: rotate(-18deg);
+    transform: rotate(-20deg);
   }
 }
 
 .tozo-clicked-wag {
   transform-origin: 75% 70%;
-  animation: tozoQuickWag 0.28s ease-in-out 3;
+  animation: tozoQuickWag 0.26s ease-in-out 3;
 }
 
-/* Ear Perk Animation on Hover */
 .tozo-ear {
   transform-origin: bottom center;
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .tozo-interactive:hover .tozo-ear-perk {
-  transform: translateY(-4px) rotate(-5deg);
+  transform: translateY(-5px) rotate(-6deg);
 }
 
-/* Speech Bubble Animation */
 @keyframes speechBubbleFade {
   from {
     opacity: 0;
-    transform: translateY(4px) scale(0.95);
+    transform: translateY(5px) scale(0.92);
   }
   to {
     opacity: 1;
@@ -141,21 +199,15 @@
 }
 
 .tozo-speech-bubble {
-  animation: speechBubbleFade 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: speechBubbleFade 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* 2D Sprite Frame Animation */
 @keyframes tozoSpriteWalkCycle {
-  0% {
+  0%, 49.9% {
     background-position: 0% 0%;
   }
-  49.9% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 0%;
-  }
-  99.9% {
+  50%, 99.9% {
     background-position: 100% 0%;
   }
   100% {
@@ -192,7 +244,7 @@
   }
   100% {
     opacity: 0;
-    transform: translate(-28px, -40px) scale(1.1) rotate(-20deg);
+    transform: translate(-30px, -42px) scale(1.15) rotate(-22deg);
   }
 }
 
@@ -203,7 +255,7 @@
   }
   100% {
     opacity: 0;
-    transform: translate(28px, -36px) scale(1.1) rotate(20deg);
+    transform: translate(30px, -38px) scale(1.15) rotate(22deg);
   }
 }
 
@@ -214,27 +266,27 @@
   }
   100% {
     opacity: 0;
-    transform: translate(0px, -50px) scale(1.2);
+    transform: translate(0px, -52px) scale(1.25);
   }
 }
 
 .paw-particle-1 {
-  animation: pawParticle1 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pawParticle1 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .paw-particle-2 {
-  animation: pawParticle2 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pawParticle2 1.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .paw-particle-3 {
-  animation: pawParticle3 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pawParticle3 1.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Toast Pop-in */
 @keyframes toastSlideUp {
   from {
     opacity: 0;
-    transform: translate(-50%, 16px) scale(0.95);
+    transform: translate(-50%, 20px) scale(0.94);
   }
   to {
     opacity: 1;
@@ -243,10 +295,10 @@
 }
 
 .toast-slide-up {
-  animation: toastSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: toastSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Respect prefers-reduced-motion */
+/* Accessibility & Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-settle,
   .tozo-walking,
@@ -263,3 +315,4 @@
     transition: none !important;
   }
 }
+
