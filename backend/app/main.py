@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from .config import CORS_ORIGINS, RATE_LIMIT_PER_MINUTE, is_ai_available
 from .routes.analyze_routes import router as analyze_router
+from .routes.auth_routes import router as auth_router
 
 app = FastAPI(
     title="AI Repo Analyzer API",
