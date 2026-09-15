@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #1B2430;
+    color: #F2EDE4;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(232, 163, 61, 0.04) 0px, transparent 45%),
+      radial-gradient(at 100% 100%, rgba(122, 155, 118, 0.04) 0px, transparent 45%);
+    background-attachment: fixed;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+}
+
+/* Dusk Trail Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141B24;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2D3A4D;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3E4E66;
+}
+
+/* Elevated Dusk Cards */
+.dusk-card {
+  background-color: #232E3D;
+  border: 1px solid rgba(242, 237, 228, 0.08);
+  border-radius: 1.25rem;
+}
+
+.dusk-card-interactive {
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dusk-card-interactive:hover {
+  border-color: rgba(232, 163, 61, 0.35);
+  background-color: #263344;
+}
+
+/* Single deliberate motion sequence on hero load */
+@keyframes heroSettle {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-settle {
+  animation: heroSettle 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Walking Mascot Animation */
+@keyframes tozoWalkBob {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+.tozo-walking {
+  animation: tozoWalkBob 0.8s ease-in-out infinite;
+}
+
+/* Tail Wag Animation */
+@keyframes tozoTailWag {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+.tozo-proud-tail {
+  transform-origin: bottom left;
+  animation: tozoTailWag 0.6s ease-in-out infinite;
+}
+
+/* Quick Tail Wag on Mascot Click */
+@keyframes tozoQuickWag {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(18deg);
+  }
+  75% {
+    transform: rotate(-18deg);
+  }
+}
+
+.tozo-clicked-wag {
+  transform-origin: 75% 70%;
+  animation: tozoQuickWag 0.28s ease-in-out 3;
+}
+
+/* Ear Perk Animation on Hover */
+.tozo-ear {
+  transform-origin: bottom center;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tozo-interactive:hover .tozo-ear-perk {
+  transform: translateY(-4px) rotate(-5deg);
+}
+
+/* Speech Bubble Animation */
+@keyframes speechBubbleFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tozo-speech-bubble {
+  animation: speechBubbleFade 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2D Sprite Frame Animation */
+@keyframes tozoSpriteWalkCycle {
+  0% {
+    background-position: 0% 0%;
+  }
+  49.9% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 0%;
+  }
+  99.9% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.tozo-2d-sprite-walk {
+  background-image: url('/tozo_spritesheet.jpg');
+  background-size: 200% 200%;
+  animation: tozoSpriteWalkCycle 0.55s steps(1) infinite;
+  image-rendering: pixelated;
+}
+
+.tozo-2d-sprite-wag {
+  background-image: url('/tozo_spritesheet.jpg');
+  background-size: 200% 200%;
+  background-position: 100% 100%;
+  image-rendering: pixelated;
+}
+
+.tozo-2d-sprite-sniff {
+  background-image: url('/tozo_spritesheet.jpg');
+  background-size: 200% 200%;
+  background-position: 0% 100%;
+  image-rendering: pixelated;
+}
+
+/* Celebration Paw Particles */
+@keyframes pawParticle1 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-28px, -40px) scale(1.1) rotate(-20deg);
+  }
+}
+
+@keyframes pawParticle2 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(28px, -36px) scale(1.1) rotate(20deg);
+  }
+}
+
+@keyframes pawParticle3 {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0px, -50px) scale(1.2);
+  }
+}
+
+.paw-particle-1 {
+  animation: pawParticle1 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.paw-particle-2 {
+  animation: pawParticle2 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.paw-particle-3 {
+  animation: pawParticle3 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Toast Pop-in */
+@keyframes toastSlideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+}
+
+.toast-slide-up {
+  animation: toastSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-settle,
+  .tozo-walking,
+  .tozo-proud-tail,
+  .tozo-clicked-wag,
+  .tozo-2d-sprite-walk,
+  .paw-particle-1,
+  .paw-particle-2,
+  .paw-particle-3,
+  .tozo-speech-bubble,
+  .toast-slide-up {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
