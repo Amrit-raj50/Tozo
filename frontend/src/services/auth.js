@@ -5,7 +5,16 @@
 
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const getApiBase = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL.replace(/\/$/, '');
+  }
+  if (typeof window !== 'undefined' && window.location.protocol === 'https:') {
+    return ''; // Call relative endpoints on Vercel deployment
+  }
+  return 'http://localhost:8000';
+};
+const API_BASE = getApiBase();
 const SESSION_KEY = 'tozo_user_session';
 const TRACKED_HISTORY_KEY = 'tozo_tracked_repos_history';
 

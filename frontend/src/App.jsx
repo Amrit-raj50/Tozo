@@ -26,7 +26,9 @@ export default function App() {
   const [repoUrl, setRepoUrl] = useState('');
   const [urlError, setUrlError] = useState('');
   const [state, setState] = useState('idle'); // idle | loading | report | error
-  const [activeTab, setActiveTab] = useState('home'); // home | myspace
+  const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+  const hasOAuthCode = urlParams ? urlParams.has('code') : false;
+  const [activeTab, setActiveTab] = useState(hasOAuthCode ? 'myspace' : 'home');
   const [jobStatus, setJobStatus] = useState(null);
   const [report, setReport] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
