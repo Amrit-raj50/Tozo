@@ -8,7 +8,7 @@ import httpx
 from typing import Optional
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
-from ..config import GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
+from ..config import get_github_client_id, get_github_client_secret
 
 router = APIRouter(prefix="/auth", tags=["Auth & My Space"])
 
@@ -25,16 +25,20 @@ class DevicePollRequest(BaseModel):
 @router.get("/github/config")
 async def get_github_auth_config():
     """Returns GitHub OAuth configuration status."""
+    client_id = get_github_client_id()
+    client_secret = get_github_client_secret()
     return {
-        "oauth_enabled": bool(GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET),
-        "client_id": GITHUB_CLIENT_ID or "",
+        "oauth_enabled": bool(client_id and client_secret),
+        "client_id": client_id or "",
     }
 
 
 @router.post("/github/callback")
 async def github_oauth_callback(payload: OAuthCallbackRequest):
     """Exchange OAuth authorization code for GitHub access token and fetch user data."""
-    if not GITHUB_CLIENT_ID or not GITHUB_CLIENT_SECRET:
+    client_id = get_github_client_id()
+    client_secret = get_github_client_secret()
+    if not client_id or not client_secret:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="GitHub OAuth is not configured on the backend. Please add GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET to .env.",
@@ -42,8 +46,8 @@ async def github_oauth_callback(payload: OAuthCallbackRequest):
 
     token_url = "https://github.com/login/oauth/access_token"
     token_params = {
-        "client_id": GITHUB_CLIENT_ID,
-        "client_secret": GITHUB_CLIENT_SECRET,
+        "client_id": client_id,
+        "client_secret": client_secret,
         "code": payload.code,
     }
     if payload.redirect_uri:
@@ -142,7 +146,8 @@ async def github_oauth_callback(payload: OAuthCallbackRequest):
 @router.post("/github/device/start")
 async def start_github_device_flow():
     """Initiate GitHub Device Authorization Flow (prompts 2-digit verification on GitHub Mobile / Browser)."""
-    if not GITHUB_CLIENT_ID:
+    client_id = get_github_client_id()
+    if not client_id:
         # If client_id is not set, provide a clean error or instructions
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -155,7 +160,7 @@ async def start_github_device_flow():
         "User-Agent": "Tozo-Code-Companion/1.0",
     }
     payload = {
-        "client_id": GITHUB_CLIENT_ID,
+        "client_id": client_id,
         "scope": "read:user repo",
     }
 
@@ -178,7 +183,8 @@ async def start_github_device_flow():
 @router.post("/github/device/poll")
 async def poll_github_device_flow(payload: DevicePollRequest):
     """Poll GitHub Device Code endpoint to check if user approved the sign-in on phone/browser."""
-    if not GITHUB_CLIENT_ID:
+    client_id = get_github_client_id()
+    if not client_id:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="GITHUB_CLIENT_ID is not configured.",
@@ -190,7 +196,7 @@ async def poll_github_device_flow(payload: DevicePollRequest):
         "User-Agent": "Tozo-Code-Companion/1.0",
     }
     body = {
-        "client_id": GITHUB_CLIENT_ID,
+        "client_id": client_id,
         "device_code": payload.device_code,
         "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
     }

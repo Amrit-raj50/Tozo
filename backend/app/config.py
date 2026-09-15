@@ -87,6 +87,32 @@ def get_ai_model() -> str:
     return model
 
 
+def get_github_client_id() -> str:
+    """Retrieve configured GitHub Client ID dynamically."""
+    cid = os.getenv("GITHUB_CLIENT_ID", "").strip()
+    if not cid:
+        for path in env_paths:
+            if path.exists():
+                load_dotenv(dotenv_path=path, override=True)
+                cid = os.getenv("GITHUB_CLIENT_ID", "").strip()
+                if cid:
+                    break
+    return cid
+
+
+def get_github_client_secret() -> str:
+    """Retrieve configured GitHub Client Secret dynamically."""
+    sec = os.getenv("GITHUB_CLIENT_SECRET", "").strip()
+    if not sec:
+        for path in env_paths:
+            if path.exists():
+                load_dotenv(dotenv_path=path, override=True)
+                sec = os.getenv("GITHUB_CLIENT_SECRET", "").strip()
+                if sec:
+                    break
+    return sec
+
+
 def is_ai_available() -> bool:
     """Check whether a valid API key has been configured."""
     key = get_api_key()
