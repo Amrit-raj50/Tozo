@@ -1,7 +1,7 @@
 # 🐾 Tozo — A Contributor's Code Companion
 
 <p align="center">
-  <img src="frontend/public/tozo_logo_paw.jpg" alt="Tozo Paw Logo" width="180" style="border-radius: 24px;" />
+  <img src="frontend/public/tozo_logo.svg" alt="Tozo Dog Mascot" width="160" />
 </p>
 
 <p align="center">

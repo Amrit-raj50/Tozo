@@ -1,0 +1,32 @@
+<svg width="200" height="200" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tail -->
+  <path d="M72 75C80 72 88 62 86 52" stroke="#E0D7C9" stroke-width="6" stroke-linecap="round"/>
+  <!-- Hindquarters -->
+  <ellipse cx="62" cy="74" rx="16" ry="14" fill="#C9BEAC"/>
+  <ellipse cx="62" cy="74" rx="14" ry="12" fill="#E0D7C9"/>
+  <ellipse cx="68" cy="85" rx="9" ry="4" fill="#F2EDE4"/>
+  <!-- Body -->
+  <path d="M42 46C42 46 36 68 38 84H56C58 70 56 50 56 46H42Z" fill="#E0D7C9"/>
+  <!-- Chest & Front Leg -->
+  <path d="M38 48C34 56 34 76 35 85H45C45 74 46 56 46 48H38Z" fill="#F2EDE4"/>
+  <ellipse cx="40" cy="85" rx="7" ry="3.5" fill="#F2EDE4"/>
+  <!-- Amber Collar -->
+  <rect x="36" y="44" width="22" height="5" rx="2.5" fill="#E8A33D"/>
+  <circle cx="47" cy="51" r="3" fill="#E8A33D" stroke="#1B2430" stroke-width="1"/>
+  <!-- Head -->
+  <path d="M32 30C32 20 44 18 52 20C60 22 64 30 64 38C64 46 54 48 44 48C34 48 32 38 32 30Z" fill="#E0D7C9"/>
+  <!-- Muzzle -->
+  <path d="M30 34C24 35 24 43 32 44C38 45 44 44 44 38C44 33 36 33 30 34Z" fill="#F2EDE4"/>
+  <!-- Nose -->
+  <ellipse cx="25" cy="38" rx="2.8" ry="2.2" fill="#1B2430"/>
+  <!-- Eye -->
+  <circle cx="42" cy="28" r="2.8" fill="#1B2430"/>
+  <circle cx="41.2" cy="27.2" r="0.9" fill="#F2EDE4"/>
+  <!-- Ears -->
+  <path d="M48 20L56 6C58 5 62 10 60 18L55 24" fill="#C9BEAC"/>
+  <path d="M42 20L44 8C45 6 48 8 47 16L45 22" fill="#E0D7C9"/>
+  <!-- Eyebrow -->
+  <path d="M39 24C41 23 44 24 45 25" stroke="#1B2430" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Whiskers / Smile -->
+  <path d="M34 38C36 40 40 40 42 38" stroke="#1B2430" stroke-width="1" stroke-linecap="round" fill="none"/>
+</svg>
