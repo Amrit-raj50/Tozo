@@ -81,14 +81,20 @@ export default function IssueCard({ issue, onDraftToast }) {
   };
 
   const getNewIssueUrl = () => {
-    if (!issue.github_link) return null;
-    const match = issue.github_link.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+    if (!issue.github_link && !issue.repo_url) return null;
+    const targetUrl = issue.github_link || issue.repo_url || '';
+    const match = targetUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
     if (!match) return null;
     const [, owner, repo] = match;
-    const title = issue.draft_title || `[${issue.category}] ${issue.description}`;
-    const body = issue.draft_body || issue.description;
+    const title = issue.draft_title || `[${(issue.category || 'bug').toUpperCase()}] ${issue.description}`;
+    const body = issue.draft_body 
+      ? issue.draft_body 
+      : `### [Tozo Finding] ${issue.description}\n\nLocation: \`${issue.full_path || issue.file}:${issue.line_start || 1}\`\n\n${issue.suggested_fix ? 'Suggested Fix:\n```\n' + issue.suggested_fix + '\n```' : ''}`;
+    
     return `https://github.com/${owner}/${repo}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
   };
+
+  const newIssueUrl = getNewIssueUrl();
 
   const severityConfigs = {
     high: {
@@ -123,7 +129,7 @@ export default function IssueCard({ issue, onDraftToast }) {
 
   return (
     <div className={`rounded-2xl p-5 sm:p-6 transition-all duration-200 border ${sevConfig.card} shadow-md group relative`}>
-      {/* Top Location Breadcrumb */}
+      {/* Top Location Breadcrumb & Action Bar */}
       <div className="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-800/80 text-xs font-mono">
         <div className="flex items-center space-x-1.5 text-slate-400 overflow-hidden">
           <Folder className="w-3.5 h-3.5 text-slate-500 shrink-0" />
@@ -146,27 +152,43 @@ export default function IssueCard({ issue, onDraftToast }) {
           </span>
         </div>
 
-        <div className="flex items-center space-x-2 shrink-0">
-          {/* Draft GitHub Issue Button */}
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          {/* Direct Pre-filled GitHub Issue Button */}
+          {newIssueUrl && (
+            <a
+              href={newIssueUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-dusk-base bg-amber-collar hover:bg-amber-400 border border-amber-collar transition-all shadow-sm cursor-pointer hover:scale-105"
+              title="Open GitHub new issue form pre-filled with Tozo's title & full 14-point markdown description"
+            >
+              <Sparkles className="w-3.5 h-3.5 fill-current" />
+              <span>File Issue on GitHub</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          )}
+
+          {/* Draft GitHub Issue Drawer Toggle */}
           <button
             onClick={() => setShowDraftDrawer(!showDraftDrawer)}
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-amber-collar hover:text-amber-300 bg-amber-collar/15 hover:bg-amber-collar/25 border border-amber-collar/30 transition-colors shadow-sm"
-            title="Preview or copy pre-formatted GitHub Issue"
+            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors shadow-sm cursor-pointer"
+            title="Preview or copy pre-formatted GitHub Issue markdown"
           >
-            <FileText className="w-3.5 h-3.5" />
-            <span>Draft Issue</span>
+            <FileText className="w-3.5 h-3.5 text-amber-collar" />
+            <span>Draft Details</span>
             {showDraftDrawer ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
           </button>
 
-          {/* View on GitHub Deep Link */}
+          {/* View Code on GitHub Link */}
           {issue.github_link && (
             <a
               href={issue.github_link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors"
+              className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-colors"
+              title="View exact line on GitHub repository"
             >
-              <span>GitHub</span>
+              <span>Code</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           )}

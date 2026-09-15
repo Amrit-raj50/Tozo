@@ -172,32 +172,60 @@ export default function FetchListCard({ fetchList = [], onSelectIssue, onDraftTo
 
                   {/* Actions Row */}
                   <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex flex-wrap items-center gap-2">
+                      {/* Direct Pre-filled GitHub Issue Button */}
+                      {(() => {
+                        const targetUrl = issue.github_link || issue.repo_url || '';
+                        const match = targetUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+                        if (!match) return null;
+                        const [, owner, repo] = match;
+                        const title = issue.draft_title || `[STARTER TASK] ${issue.description}`;
+                        const body = issue.draft_body || `### [Tozo Starter Task] ${issue.description}\n\nLocation: \`${issue.file}:${issue.line_start || 1}\`\n\n${issue.suggested_fix ? 'Suggested Fix:\n```\n' + issue.suggested_fix + '\n```' : ''}`;
+                        const newIssueUrl = `https://github.com/${owner}/${repo}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+
+                        return (
+                          <a
+                            href={newIssueUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-dusk-base bg-amber-collar hover:bg-amber-400 border border-amber-collar transition-all shadow-sm cursor-pointer hover:scale-105"
+                            title="Open pre-filled GitHub new issue form with title & body"
+                          >
+                            <FileText className="w-3.5 h-3.5 fill-current" />
+                            <span>File Issue on GitHub</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        );
+                      })()}
+
+                      {/* Copy Draft Button */}
                       <button
                         onClick={(e) => handleCopyDraft(issue, idx, e)}
-                        className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-amber-collar hover:bg-amber-400 text-dusk-base transition-all shadow-sm"
+                        className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 transition-all shadow-sm cursor-pointer"
                       >
                         {isCopied ? (
                           <>
-                            <Check className="w-3.5 h-3.5" />
-                            <span>Issue Markdown Copied!</span>
+                            <Check className="w-3.5 h-3.5 text-emerald-400" />
+                            <span className="text-emerald-400">Copied!</span>
                           </>
                         ) : (
                           <>
                             <Copy className="w-3.5 h-3.5" />
-                            <span>Draft GitHub Issue</span>
+                            <span>Copy Markdown</span>
                           </>
                         )}
                       </button>
 
+                      {/* Code Permalink */}
                       {issue.github_link && (
                         <a
                           href={issue.github_link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition-colors"
+                          className="inline-flex items-center space-x-1 px-2.5 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-colors"
+                          title="View source file on GitHub"
                         >
-                          <span>Open on GitHub</span>
+                          <span>Code</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       )}
@@ -206,9 +234,9 @@ export default function FetchListCard({ fetchList = [], onSelectIssue, onDraftTo
                     {onSelectIssue && (
                       <button
                         onClick={() => onSelectIssue(issue)}
-                        className="text-xs text-slate-400 hover:text-amber-collar flex items-center space-x-1 transition-colors"
+                        className="text-xs text-slate-400 hover:text-amber-collar flex items-center space-x-1 transition-colors cursor-pointer"
                       >
-                        <span>Filter this in Report</span>
+                        <span>Filter in Report</span>
                         <ArrowRight className="w-3 h-3" />
                       </button>
                     )}
