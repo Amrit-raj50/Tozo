@@ -10,6 +10,7 @@
 </p>
 
 <p align="center">
+  <a href="#-user-guide-how-to-use-tozo">User Guide</a> •
   <a href="#-key-features">Key Features</a> •
   <a href="#-architecture--12-stage-pipeline">Architecture</a> •
   <a href="#-tozos-fetch-list--issue-drafter">Fetch List & Issue Drafter</a> •
@@ -21,7 +22,35 @@
 
 ## 🌟 Why Tozo?
 
-Entering a new open-source codebase can feel overwhelming. **Tozo** acts as your loyal code-hunting companion: it shallow-clones any public GitHub repository, audits the code across **11 taxonomy domains**, generates an **Executive Repo Briefing**, curates beginner-friendly **starter tasks (Tozo's Fetch List)**, and drafts **14-point maintainer-grade GitHub issues** ready for one-click copy.
+Entering a new open-source codebase can feel overwhelming. **Tozo** acts as your loyal code-hunting companion: it shallow-clones any public GitHub repository, audits the code across **11 taxonomy domains**, generates an **Executive Repo Briefing**, curates beginner-friendly **starter tasks (Tozo's Fetch List)**, and drafts **14-point maintainer-grade GitHub issues** ready for **one-click pre-filled filing on GitHub**.
+
+---
+
+## 📖 User Guide: How to Use Tozo
+
+### 1. Analyzing any Public GitHub Repository
+1. Open Tozo in your browser.
+2. Paste any public GitHub repository URL (e.g., `https://github.com/pallets/flask`) into the search bar, or click any of the curated trail chips.
+3. Click **Sniff Out Issues**.
+4. Watch Tozo's live 12-stage progress trail as it shallow clones the repository, runs single-pass AST parsing, performs static checks, and queries AI models concurrently.
+
+### 2. Exploring "Tozo's Fetch List" (Beginner-Friendly Pickups)
+1. At the top of your analysis report, view **Tozo's Fetch List**.
+2. Browse curated low-risk starter tasks (typos, missing docstrings, quick linter cleanups).
+3. Read Tozo's tip explaining *why* each task is ideal for your first merged pull request.
+
+### 3. One-Click Pre-filled GitHub Issue Filing
+Tozo streamlines contributing to open-source:
+- **Instant Pre-filled Form**: Click **`File Issue on GitHub`** on any issue card or Fetch List treat. Tozo generates a URL (`https://github.com/owner/repo/issues/new?title=...&body=...`) that opens GitHub's issue editor with the **Title** and **14-Point Maintainer-Grade Description** ALREADY PRE-FILLED!
+- **Draft Details & Markdown Copy**: Click **`Draft Details`** to toggle between **Formatted Preview** and **Raw Markdown**, or copy the title/markdown directly to your clipboard.
+
+### 4. Sharing Public Scorecards
+- Click **Share Scorecard** in the header of any completed report to copy a shareable permalink (`/scorecard/{owner}/{repo}`).
+- Teammates or maintainers can open the link to instantly view the cached scorecard without re-cloning.
+
+### 5. Tracking Code Drift (Re-Scanning)
+- Click **Re-Scan Repository** to perform a forced fresh scan.
+- Tozo compares the current commit SHA against historical SQLite scans (`tozo_history.db`) and highlights **New Issues Added**, **Issues Resolved**, and **Persistent Findings**.
 
 ---
 
@@ -29,7 +58,8 @@ Entering a new open-source codebase can feel overwhelming. **Tozo** acts as your
 
 - 🐶 **Interactive Companion (Tozo Mascot)**: Reactive mascot with context-aware poses (`searching`, `walking`, `fetching`, `proud`, `confused`), animated wags, ears perking, and dynamic barks.
 - 🦴 **Tozo's Fetch List**: Curated beginner-friendly pickups (low risk, high confidence) designed for your first merged pull request.
-- 📝 **Maintainer-Grade GitHub Issue Drafter**: 14-point structured issue generator (Title, Description, File/Line, Technical Analysis, Reproduction, Suggested Fix, Code Diff, Impact, Verification Plan).
+- 🚀 **One-Click Pre-filled GitHub Issue Filing**: Opens GitHub's issue form with title and 14-point markdown description pre-populated.
+- 📝 **Maintainer-Grade Issue Drafter**: 14-point structured issue generator (Title, Description, File/Line, Technical Analysis, Reproduction, Suggested Fix, Code Diff, Impact, Verification Plan).
 - 🏷️ **11-Domain Issue Taxonomy**: Categorized into `Bugs`, `Error Handling`, `Backend`, `Frontend`, `Lint & Style`, `Typos`, `CI/CD Workflows`, `Deployment`, `Documentation`, `Enhancements`, and `Test Coverage`.
 - 📊 **Executive Repository Briefing**: Fact-based structural overview, architecture summary, primary languages, entry points, key directories, guidelines, and contribution friendliness score (0-100).
 - 🔄 **Re-Scan Diffing & SQLite History**: Tracks added, resolved, and persistent issues across commits with SQLite historical scan persistence.
@@ -109,7 +139,7 @@ backend/
 
 ## 📜 Maintainer-Grade GitHub Issue Drafter (14-Point Schema)
 
-When you expand any issue card or select a treat from **Tozo's Fetch List**, Tozo automatically drafts a complete 14-point GitHub issue:
+When you click **`File Issue on GitHub`** or expand **`Draft Details`**, Tozo generates a complete 14-point maintainer-grade issue:
 
 1. **Title**: Concise, actionable summary prefixed with category tag.
 2. **Overview**: Clear problem summary and why it matters.
