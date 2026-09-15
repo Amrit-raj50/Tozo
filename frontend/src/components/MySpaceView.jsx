@@ -126,26 +126,33 @@ export default function MySpaceView({ onAnalyzeRepo }) {
   // 1-Click Main "Continue with GitHub" button handler
   const handleOneClickGithubLogin = async () => {
     setErrorMsg('');
-    if (authConfig.oauth_enabled && authConfig.client_id) {
-      // Direct Web OAuth Redirect Flow (triggers 2-digit mobile verification)
-      redirectToGithubOAuth(authConfig.client_id);
-    } else {
-      // If GITHUB_CLIENT_ID is not configured in backend, launch Device flow or Instant Quick Connect
-      setIsLoading(true);
-      setLoadingText('Connecting to GitHub...');
-      try {
-        const flow = await startGithubDeviceFlow();
-        setDeviceFlowData(flow);
-        setDevicePolling(true);
-        setDeviceTimer(flow.expires_in || 900);
-      } catch (err) {
-        // If device flow not configured, show friendly prompt for manual username
-        setShowManualOptions(true);
-        setErrorMsg('GitHub OAuth app credentials are not yet set in backend .env. You can sign in below directly with your GitHub username or token in 1-click!');
-      } finally {
-        setIsLoading(false);
-        setLoadingText('');
+    setIsLoading(true);
+    setLoadingText('Connecting to GitHub...');
+
+    try {
+      // Fetch latest config dynamically
+      const cfg = await getGithubAuthConfig();
+      setAuthConfig(cfg);
+
+      const clientId = cfg.client_id || 'Ov23li3wozYY6QgyE2zy';
+
+      if (cfg.oauth_enabled || clientId) {
+        // Direct Web OAuth Redirect Flow (triggers 2-digit mobile verification)
+        redirectToGithubOAuth(clientId);
+        return;
       }
+
+      // Fallback: Device flow
+      const flow = await startGithubDeviceFlow();
+      setDeviceFlowData(flow);
+      setDevicePolling(true);
+      setDeviceTimer(flow.expires_in || 900);
+    } catch (err) {
+      setShowManualOptions(true);
+      setErrorMsg('Could not connect to GitHub OAuth. Please try signing in with your username or token below.');
+    } finally {
+      setIsLoading(false);
+      setLoadingText('');
     }
   };
 
