@@ -72,6 +72,8 @@ async def rate_limit_middleware(request: Request, call_next):
 # Register routes at both root and /api prefix for flexible frontend proxying
 app.include_router(analyze_router)
 app.include_router(analyze_router, prefix="/api")
+app.include_router(auth_router)
+app.include_router(auth_router, prefix="/api")
 
 
 @app.get("/")

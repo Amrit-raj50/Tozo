@@ -37,8 +37,10 @@ MAX_AI_CHUNKS: int = int(os.getenv("MAX_AI_CHUNKS", "15"))
 COMPLEXITY_THRESHOLD: int = int(os.getenv("COMPLEXITY_THRESHOLD", "5"))
 AI_CONCURRENCY_LIMIT: int = int(os.getenv("AI_CONCURRENCY_LIMIT", "5"))
 
-# GitHub API Configuration (Optional token raises rate limit from 60/hr to 5000/hr)
+# GitHub API & OAuth Configuration
 GITHUB_TOKEN: str = os.getenv("GITHUB_TOKEN", "").strip()
+GITHUB_CLIENT_ID: str = os.getenv("GITHUB_CLIENT_ID", "").strip()
+GITHUB_CLIENT_SECRET: str = os.getenv("GITHUB_CLIENT_SECRET", "").strip()
 
 # SQLite Persistence Paths
 DATA_DIR: Path = backend_dir / "app" / "data"
