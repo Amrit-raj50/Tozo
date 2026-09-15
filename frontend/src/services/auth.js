@@ -67,7 +67,8 @@ export async function getGithubAuthConfig() {
  */
 export function redirectToGithubOAuth(clientId) {
   const currentOrigin = window.location.origin;
-  const redirectUri = `${currentOrigin}/`;
+  const isLocalhost = currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1');
+  const redirectUri = isLocalhost ? `${currentOrigin}/` : 'https://tozo.vercel.app/';
   const state = Math.random().toString(36).substring(2, 15);
   sessionStorage.setItem('tozo_oauth_state', state);
 
